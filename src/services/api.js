@@ -9,11 +9,6 @@ const apiFetch = async (endpoint, options = {}) => {
     "Accept": "application/json",
   };
 
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
-  if (user?.token) {
-    defaultHeaders["Authorization"] = `Bearer ${user.token}`;
-  }
-
   const config = {
     ...options,
     headers: {
@@ -27,7 +22,7 @@ const apiFetch = async (endpoint, options = {}) => {
     const response = await fetch(`${API_URL}${endpoint}`, config);
 
     if (response.status === 401) {
-      console.warn("Sesión expirada");
+      console.warn("Sesión no autorizada o expirada");
     }
 
     if (!response.ok) {

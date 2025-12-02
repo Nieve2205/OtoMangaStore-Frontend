@@ -1,112 +1,49 @@
-// src/services/api.js
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { CartProvider } from './context/CartContext';
 
-// ⚠️ CAMBIA ESTO POR TU URL REAL DE RENDER
-const API_URL = "https://otamanga-production.up.railway.app/api";
+// Layout
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
+import CartSidebar from './components/common/CartSidebar';
 
-const apiFetch = async (endpoint, options = {}) => {
-  const defaultHeaders = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-  };
+// Pages
+import Home from './pages/Home/Home';
+import Catalog from './pages/Catalog/Catalog';
+import ProductDetail from './pages/ProductDetail/ProductDetail';
+import Recommendations from './pages/Recommendations/Recommendations';
+import About from './pages/About/About';
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
+import AdminPanel from './pages/Admin/AdminPanel';
 
-  const config = {
-    ...options,
-    headers: {
-      ...defaultHeaders,
-      ...options.headers,
-    },
-    // IMPORTANTE: Esto permite que las cookies (HttpOnly) viajen automáticamente
-    // tanto del servidor al cliente (Login) como del cliente al servidor (Peticiones)
-    credentials: "include", 
-  };
+import './App.css';
 
-  try {
-    const response = await fetch(`${API_URL}${endpoint}`, config);
+function App() {
+  return (
+    <CartProvider>
+      <Router>
+        <div className="App">
+          <Header />
+          <CartSidebar />
+          <main>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/catalogo" element={<Catalog />} />
+              <Route path="/catalogo/producto/:id" element={<ProductDetail />} />
+              <Route path="/recomendaciones" element={<Recommendations />} />
+              <Route path="/nosotros" element={<About />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/registro" element={<Register />} />
+              <Route path="/admin" element={<AdminPanel />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </CartProvider>
+  );
+}
 
-    // Si la cookie expiró o no es válida
-    if (response.status === 401) {
-      console.warn("Sesión no autorizada o expirada");
-      // Opcional: Redirigir al login si es necesario
-      // window.location.href = '/login';
-    }
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || `Error ${response.status}`);
-    }
-
-    if (response.status === 204) return null;
-
-    return await response.json();
-  } catch (error) {
-    console.error(`Error en API (${endpoint}):`, error);
-    throw error;
-  }
-};
-
-/* --- SERVICIOS --- */
-
-export const authService = {
-  // El login establecerá la cookie automáticamente gracias a credentials: 'include'
-  loginAdmin: (creds) => apiFetch("/Auth/admin/login", { method: "POST", body: JSON.stringify(creds) }),
-  
-  // El logout borrará la cookie en el servidor
-  logout: () => apiFetch("/Auth/logout", { method: "POST" }),
-  
-  // Endpoint útil para preguntar al backend "¿Sigo logueado?"
-  checkAuth: () => apiFetch("/Auth/check-auth"),
-};
-
-export const mangaService = {
-  getAll: () => apiFetch("/Mangas"),
-  getById: (id) => apiFetch(`/Mangas/${id}`),
-  getByCategory: (catId) => apiFetch(`/Mangas/category/${catId}`),
-  create: (data) => apiFetch("/Mangas", { method: "POST", body: JSON.stringify(data) }),
-  update: (id, data) => apiFetch(`/Mangas/${id}`, { method: "PUT", body: JSON.stringify(data) }),
-  exportExcel: () => window.open(`${API_URL}/Mangas/export`, '_blank')
-};
-
-export const authorService = {
-  getAll: () => apiFetch("/Authors"),
-  getById: (id) => apiFetch(`/Authors/${id}`),
-  create: (data) => apiFetch("/Authors", { method: "POST", body: JSON.stringify(data) }),
-  update: (id, data) => apiFetch(`/Authors/${id}`, { method: "PUT", body: JSON.stringify(data) }),
-  delete: (id) => apiFetch(`/Authors/${id}`, { method: "DELETE" }),
-};
-
-export const categoryService = {
-  getAll: () => apiFetch("/Category"),
-  getById: (id) => apiFetch(`/Category/${id}`),
-  create: (data) => apiFetch("/Category", { method: "POST", body: JSON.stringify(data) }),
-  update: (id, data) => apiFetch(`/Category/${id}`, { method: "PUT", body: JSON.stringify(data) }),
-  delete: (id) => apiFetch(`/Category/${id}`, { method: "DELETE" }),
-};
-
-export const orderService = {
-  create: (orderData) => apiFetch("/Orders", { method: "POST", body: JSON.stringify(orderData) }),
-  getMyOrders: () => apiFetch("/Orders"),
-  getAllAdmin: () => apiFetch("/admin/orders"),
-};
-
-export const metricService = {
-  registerClick: (data) => apiFetch("/Metrics/click", { method: "POST", body: JSON.stringify(data) }),
-  getTop: () => apiFetch("/Metrics/top"),
-  getRanking: () => apiFetch("/Metrics/category-ranking"),
-};
-
-export const recommendationService = {
-  get: () => apiFetch("/Recommendations"),
-};
-
-// Objeto agrupador por defecto
-const api = {
-  auth: authService,
-  mangas: mangaService,
-  authors: authorService,
-  categories: categoryService,
-  orders: orderService,
-  metrics: metricService,
-  recommendations: recommendationService
-};
-
-export default api;
+export default App;
