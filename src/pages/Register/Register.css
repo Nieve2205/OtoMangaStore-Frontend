@@ -1,0 +1,4 @@
+/* Invertir orden en escritorio para variar */
+.auth-container.register-mode {
+  flex-direction: row-reverse;
+}

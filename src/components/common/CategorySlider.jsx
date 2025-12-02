@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './CategorySlider.css';
 
 const CategorySlider = ({ categories }) => {
@@ -12,11 +13,11 @@ const CategorySlider = ({ categories }) => {
               alt={category.title} 
               className="category-image" 
             />
-            <div className="category-overlay">
+            <div className="category-content">
               <h3 className="category-title">{category.title}</h3>
-              <a href={category.link} className="category-button">
-                →
-              </a>
+              <Link to={category.link} className="category-btn">
+                EXPLORAR
+              </Link>
             </div>
           </div>
         ))}

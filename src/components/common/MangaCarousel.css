@@ -1,0 +1,122 @@
+/* src/common/MangaCarousel.css */
+.carousel-container {
+  padding: 1rem 0;
+  position: relative;
+}
+
+/* Contenedor con scroll horizontal */
+.manga-track {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 2rem; /* Espacio para scrollbar y sombras */
+  scroll-behavior: smooth;
+  /* Ocultar barra de scroll en navegadores modernos pero mantener funcionalidad */
+  scrollbar-width: thin;
+  scrollbar-color: #ff6b35 #f0f0f0;
+}
+
+.manga-track::-webkit-scrollbar {
+  height: 8px;
+}
+
+.manga-track::-webkit-scrollbar-thumb {
+  background-color: #ff6b35;
+  border-radius: 4px;
+}
+
+.manga-track::-webkit-scrollbar-track {
+  background-color: #e0e0e0;
+}
+
+/* Tarjeta Individual */
+.manga-card {
+  flex: 0 0 220px; /* Ancho fijo para cada tarjeta */
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.manga-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  border-color: #ff6b35;
+}
+
+/* Imagen */
+.manga-cover-container {
+  height: 330px;
+  overflow: hidden;
+  position: relative;
+}
+
+.manga-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.manga-card:hover .manga-cover {
+  transform: scale(1.1); /* Zoom suave */
+}
+
+/* Información */
+.manga-info {
+  padding: 1rem;
+  text-align: center;
+  background: white;
+  position: relative;
+  z-index: 2;
+}
+
+.manga-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  margin: 0;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Puntos suspensivos si es muy largo */
+}
+
+.manga-price {
+  font-family: 'Roboto', sans-serif;
+  color: #ff6b35;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+/* Overlay de "Ver más" */
+.manga-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.manga-card:hover .manga-overlay {
+  opacity: 1;
+}
+
+.btn-view {
+  background: #ff6b35;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}

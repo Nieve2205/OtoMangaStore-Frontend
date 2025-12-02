@@ -1,0 +1,158 @@
+/* src/pages/Recommendations/Recommendations.css */
+
+/* Variables locales para esta página */
+.recommendations-container {
+  --otomanga-orange: #ff6b35;
+  --bg-texture: #f4f4f4; /* Aquí iría tu textura de papel si la tienes */
+  font-family: 'Roboto', sans-serif; /* Asegúrate de importar la fuente en index.css */
+  background-color: var(--bg-texture);
+  overflow-x: hidden;
+  padding-bottom: 4rem;
+}
+
+/* --- HERO SECTION --- */
+.rec-hero {
+  display: flex;
+  height: 60vh;
+  min-height: 500px;
+  width: 100%;
+}
+
+.rec-hero-left {
+  flex: 4;
+  background-color: var(--otomanga-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* El recuadro blanco del título */
+.rec-title-box {
+  border: 4px solid white;
+  padding: 2.5rem 3rem;
+  color: white;
+  text-align: center;
+}
+
+.rec-title-main {
+  font-family: 'Bebas Neue', sans-serif; /* Fuente condensada */
+  font-size: 4.5rem;
+  line-height: 0.9;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.rec-title-sub {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  display: block;
+  margin-top: 0.5rem;
+  opacity: 0.9;
+}
+
+.rec-hero-right {
+  flex: 6;
+  position: relative;
+  overflow: hidden;
+}
+
+.rec-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* --- SPOTLIGHT SECTION (Yato + Card) --- */
+.rec-spotlight {
+  position: relative;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+}
+
+/* La Mascota Flotante */
+.mascot-yato {
+  position: absolute;
+  left: -50px; /* Un poco metido a la izquierda */
+  bottom: 0;
+  height: 95%;
+  width: auto;
+  z-index: 10;
+  pointer-events: none; /* Permite clicks a través de la imagen transparente */
+  filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.2));
+}
+
+/* Tarjeta Destacada "¿Quiénes Somos?" */
+.feature-card {
+  display: flex;
+  width: 900px;
+  max-width: 90%;
+  background: white;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  margin-left: 250px; /* Espacio para Yato */
+  border-top: 8px solid var(--otomanga-orange); /* El borde naranja superior */
+}
+
+.feature-content {
+  flex: 1;
+  padding: 4rem;
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.feature-link {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  color: var(--otomanga-orange);
+  text-decoration: none;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.feature-link:hover {
+  transform: translateX(15px);
+}
+
+.feature-arrow {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.feature-image-container {
+  flex: 1;
+}
+
+.feature-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .rec-title-main { font-size: 3.5rem; }
+  .feature-card { margin-left: 100px; }
+}
+
+@media (max-width: 768px) {
+  .rec-hero { flex-direction: column; height: auto; }
+  .rec-hero-right { height: 300px; }
+  
+  .mascot-yato { display: none; /* Ocultar en móvil para que no estorbe */ }
+  
+  .feature-card { 
+    margin-left: 0; 
+    flex-direction: column-reverse; /* Imagen arriba, texto abajo en móvil */
+  }
+  
+  .feature-content { padding: 2rem; align-items: center; }
+}
