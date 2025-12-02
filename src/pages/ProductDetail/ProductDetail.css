@@ -1,0 +1,128 @@
+/* src/pages/ProductDetail/ProductDetail.css */
+.product-detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+}
+
+.detail-wrapper {
+  display: flex;
+  gap: 4rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+/* Lado Izquierdo: Imagen */
+.detail-image {
+  flex: 1;
+  max-width: 450px;
+}
+
+.detail-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* Lado Derecho: Info */
+.detail-info {
+  flex: 1.5;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.5rem;
+  margin: 0 0 0.5rem 0;
+  color: #1a1a1a;
+  line-height: 1;
+}
+
+.detail-category {
+  display: inline-block;
+  background-color: #eee;
+  padding: 0.2rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  width: fit-content;
+}
+
+.detail-price {
+  font-size: 2.5rem;
+  color: #ff6b35; /* Naranja Otamanga */
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.detail-description h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  border-bottom: 2px solid #ff6b35;
+  display: inline-block;
+}
+
+.detail-description p {
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+/* Acciones de Compra */
+.detail-actions {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: auto;
+}
+
+.btn-add-cart {
+  flex: 2;
+  background-color: #ff6b35;
+  color: white;
+  border: none;
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-add-cart:hover {
+  background-color: #e05520;
+}
+
+.btn-wishlist {
+  flex: 1;
+  background-color: transparent;
+  border: 2px solid #1a1a1a;
+  color: #1a1a1a;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-wishlist:hover {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .detail-wrapper { flex-direction: column; gap: 2rem; }
+  .detail-image { max-width: 100%; }
+  .detail-title { font-size: 2.5rem; }
+}

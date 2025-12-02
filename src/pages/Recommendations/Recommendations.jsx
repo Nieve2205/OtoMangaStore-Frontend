@@ -17,7 +17,7 @@ const Recommendations = () => {
         <div className="rec-hero-right">
           {/* Imagen de Cosplayers - Asegúrate de tenerla en public/images/recommendations/ */}
           <img 
-            src="/images/recommendations/cosplayers.avif" 
+            src="/images/recommendations/cosplayers.jpg" 
             alt="Comunidad Otaku Cosplay" 
             className="rec-hero-img"
           />

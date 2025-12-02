@@ -9,25 +9,25 @@ const apiFetch = async (endpoint, options = {}) => {
     "Accept": "application/json",
   };
 
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  if (user?.token) {
+    defaultHeaders["Authorization"] = `Bearer ${user.token}`;
+  }
+
   const config = {
     ...options,
     headers: {
       ...defaultHeaders,
       ...options.headers,
     },
-    // IMPORTANTE: Esto permite que las cookies (HttpOnly) viajen automáticamente
-    // tanto del servidor al cliente (Login) como del cliente al servidor (Peticiones)
     credentials: "include", 
   };
 
   try {
     const response = await fetch(`${API_URL}${endpoint}`, config);
 
-    // Si la cookie expiró o no es válida
     if (response.status === 401) {
-      console.warn("Sesión no autorizada o expirada");
-      // Opcional: Redirigir al login si es necesario
-      // window.location.href = '/login';
+      console.warn("Sesión expirada");
     }
 
     if (!response.ok) {
@@ -47,13 +47,8 @@ const apiFetch = async (endpoint, options = {}) => {
 /* --- SERVICIOS --- */
 
 export const authService = {
-  // El login establecerá la cookie automáticamente gracias a credentials: 'include'
   loginAdmin: (creds) => apiFetch("/Auth/admin/login", { method: "POST", body: JSON.stringify(creds) }),
-  
-  // El logout borrará la cookie en el servidor
   logout: () => apiFetch("/Auth/logout", { method: "POST" }),
-  
-  // Endpoint útil para preguntar al backend "¿Sigo logueado?"
   checkAuth: () => apiFetch("/Auth/check-auth"),
 };
 
@@ -98,7 +93,6 @@ export const recommendationService = {
   get: () => apiFetch("/Recommendations"),
 };
 
-// Objeto agrupador por defecto
 const api = {
   auth: authService,
   mangas: mangaService,
